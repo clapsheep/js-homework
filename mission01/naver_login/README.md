@@ -59,7 +59,7 @@ const loginButton = document.querySelector(".btn-login");
 - vaildation 함수
 
 ```
-function emailHandleInput(e) {
+function emailHandleInput() {
   if (emailReg(emailInput.value)) {
     emailInput.classList.remove("is--invalid");
   } else {

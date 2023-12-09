@@ -30,7 +30,7 @@ function pwReg(text) {
 }
 
 //이메일 밸리데이션 - 만약에 emailInput에 입력한 값이 emailReg()에 들어가서 true 라면, 통과, 아니면 fail
-function emailHandleInput(e) {
+function emailHandleInput() {
   if (emailReg(emailInput.value)) {
     emailInput.classList.remove("is--invalid");
   } else {
@@ -41,7 +41,7 @@ function emailHandleInput(e) {
 emailInput.addEventListener("input", emailHandleInput);
 
 // 패스워드 밸리데이션
-function passwordHandleInput(e) {
+function passwordHandleInput() {
   if (pwReg(passwordInput.value)) {
     passwordInput.classList.remove("is--invalid");
   } else {
