@@ -11,9 +11,13 @@ const user = {
   id: "asd@naver.com",
   pw: "spdlqj123!@",
 };
+
 const emailInput = document.querySelector("#userEmail");
 const passwordInput = document.querySelector("#userPassword");
 const loginButton = document.querySelector(".btn-login");
+
+let emailPass = false;
+let pwPass = false;
 
 // 이메일 벨리데이션 정규 표현식 함수
 function emailReg(text) {
@@ -31,25 +35,27 @@ function pwReg(text) {
 
 //이메일 밸리데이션 - 만약에 emailInput에 입력한 값이 emailReg()에 들어가서 true 라면, 통과, 아니면 fail
 function emailHandleInput() {
-  if (emailReg(emailInput.value)) {
-    emailInput.classList.remove("is--invalid");
+  let value = this.value;
+  if (emailReg(value)) {
+    this.classList.remove("is--invalid");
+    emailPass = true;
   } else {
-    emailInput.classList.add("is--invalid");
+    this.classList.add("is--invalid");
+    emailPass = false;
   }
 }
-
-emailInput.addEventListener("input", emailHandleInput);
 
 // 패스워드 밸리데이션
 function passwordHandleInput() {
-  if (pwReg(passwordInput.value)) {
-    passwordInput.classList.remove("is--invalid");
+  let value = this.value;
+  if (pwReg(value)) {
+    this.classList.remove("is--invalid");
+    pwPass = true;
   } else {
-    passwordInput.classList.add("is--invalid");
+    this.classList.add("is--invalid");
+    pwPass = false;
   }
 }
-
-passwordInput.addEventListener("input", passwordHandleInput);
 
 // 웰컴페이지 이동 함수
 function enterWelcomePage() {
@@ -59,12 +65,24 @@ function enterWelcomePage() {
 //아이디 비밀번호 일치 시 웰컴 페이지 이동
 function handleLoginButton(e) {
   e.preventDefault();
-  if (emailInput.value === user.id && passwordInput.value === user.pw) {
-    enterWelcomePage();
+  if (emailPass && pwPass) {
+    const id = emailInput.value;
+    const pw = passwordInput.value;
+    const getUserId = user.id;
+    const getUserPw = user.pw;
+
+    if (id === getUserId && pw === getUserPw) {
+      enterWelcomePage();
+    } else {
+      alert("이메일과 패스워드를 다시 확인해주세요.");
+      location.reload(true);
+    }
   } else {
-    alert("이메일과 패스워드를 다시 확인해주세요.");
-    location.reload(true);
+    alert("입력부터 똑바로 하고와!");
   }
 }
+emailInput.addEventListener("input", emailHandleInput);
+
+passwordInput.addEventListener("input", passwordHandleInput);
 
 loginButton.addEventListener("click", handleLoginButton);
